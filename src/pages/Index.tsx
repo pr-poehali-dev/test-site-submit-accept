@@ -12,7 +12,7 @@ export default function Index() {
     setFormState("loading");
 
     try {
-      const res = await fetch("/api/send-request", {
+      const res = await fetch("https://functions.poehali.dev/8b0d1b88-57f5-4e5d-b703-b3fe50a7df37", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
