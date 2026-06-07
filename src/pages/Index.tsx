@@ -115,10 +115,9 @@ export default function Index() {
               </div>
               <input
                 type="tel"
-                placeholder="Номер телефона"
+                placeholder="Номер телефона (необязательно)"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                required
                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 pl-12 text-white placeholder-white/30 outline-none transition-all focus:border-violet-500/60 focus:bg-white/[0.08] focus:shadow-[0_0_0_1px_rgba(139,92,246,0.3)]"
               />
             </div>
