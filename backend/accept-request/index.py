@@ -1,6 +1,5 @@
 import json
 import os
-import urllib.request
 import urllib.parse
 from datetime import datetime, timedelta
 
@@ -78,6 +77,9 @@ def handler(event: dict, context) -> dict:
 
     expires_str = expires_at.strftime("%d.%m.%Y в %H:%M")
 
+    site_url = os.environ.get("SITE_URL", "")
+    tariffs_url = f"{site_url}/tariffs?email={urllib.parse.quote(email)}" if site_url else "/tariffs"
+
     return {
         "statusCode": 200,
         "headers": {"Access-Control-Allow-Origin": "*", "Content-Type": "text/html; charset=utf-8"},
@@ -85,13 +87,18 @@ def handler(event: dict, context) -> dict:
             "Премиум активирован!",
             f"Пользователю <b>{email}</b> выдан Premium тариф до {expires_str}.",
             "#10b981",
+            tariffs_url,
         ),
     }
 
 
-def _page(title: str, message: str, color: str) -> str:
+def _page(title: str, message: str, color: str, tariffs_url: str = "") -> str:
     icon = "✅" if color == "#10b981" else "❌"
     badge = "Premium • 1 день" if color == "#10b981" else "Ошибка"
+    btn = (
+        f'<a href="{tariffs_url}" style="display:inline-block;margin-top:24px;padding:14px 32px;border-radius:50px;background:linear-gradient(135deg,#7c3aed,#db2777);color:white;text-decoration:none;font-size:15px;font-weight:700;">🏆 Открыть тарифы</a>'
+        if tariffs_url else ""
+    )
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -121,6 +128,7 @@ def _page(title: str, message: str, color: str) -> str:
     <h1>{title}</h1>
     <p>{message}</p>
     <div class="badge">{badge}</div>
+    {btn}
   </div>
 </body>
 </html>"""

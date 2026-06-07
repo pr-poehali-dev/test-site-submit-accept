@@ -1,4 +1,5 @@
 {
+  "get-tariff": "https://functions.poehali.dev/cc379834-4f4e-44f7-a277-83138278898f",
   "accept-request": "https://functions.poehali.dev/5ee3d022-c20d-43ce-a19a-40dabcca3be8",
   "send-request": "https://functions.poehali.dev/8b0d1b88-57f5-4e5d-b703-b3fe50a7df37"
 }
